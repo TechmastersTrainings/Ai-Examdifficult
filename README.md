@@ -144,12 +144,12 @@
 
 - [x] **Phase 1: Requirements and Environment Discovery** — Hardware audited (8GB RAM, Intel UHD), scope locked, zero-mock policy defined.
 - [x] **Phase 2: Repository and Application Foundation** — Git configured, FastAPI backend initialized with test suite, Next.js frontend built and verified.
-- [ ] **Phase 3: Database and Authentication** — SQLAlchemy models, Alembic migrations, Argon2id hashing, JWT auth, and 3-role RBAC.
-- [ ] **Phase 4: Dataset Pipeline** — Real educational datasets acquired, validated, preprocessed, and stratified.
-- [ ] **Phase 5: Baseline NLP and ML** — TF-IDF + Logistic Regression / Linear SVM models trained and evaluated.
-- [ ] **Phase 6: Advanced Modeling** — Compact transformer / fine-tuned contextual model evaluations and ablations.
-- [ ] **Phase 7: Document Processing Pipeline** — PDF / DOCX text extraction, question number parsing, section segmentation.
-- [ ] **Phase 8: Backend Integration** — End-to-end APIs for upload, analysis, corrections, and reporting.
+- [x] **Phase 3: Database and Authentication** — SQLAlchemy models, Alembic migrations, Argon2id hashing, JWT auth, and 3-role RBAC.
+- [x] **Phase 4: Dataset Pipeline** — Real educational datasets acquired, validated, preprocessed, and stratified.
+- [x] **Phase 5: Baseline NLP and ML** — TF-IDF + Logistic Regression / Linear SVM models trained and evaluated.
+- [x] **Phase 6: Advanced Modeling** — Compact transformer / feature ablation evaluations, leakage analysis, and error audits.
+- [x] **Phase 7: Document Processing Pipeline** — PDF / DOCX text extraction, question number parsing, section segmentation.
+- [x] **Phase 8: Backend Integration** — End-to-end APIs for upload, analysis, corrections, and reporting (ReportLab PDF & streaming CSV).
 - [ ] **Phase 9: Role-Specific Frontend Dashboards** — Admin, Teacher, and Researcher complete interactive views.
 - [ ] **Phase 10: Integration & Security Testing** — Automated acceptance testing across authorization boundaries.
 - [ ] **Phase 11: Deployment & Production Hardening** — Production configuration and backup strategy.
