@@ -9,6 +9,8 @@ from backend.app.core.security import decode_token
 from backend.app.db.session import get_db
 from backend.app.models.user import User, UserRole
 
+revoked_token_jtis: set = set()
+
 oauth2_scheme = OAuth2PasswordBearer(
     tokenUrl=f"{settings.API_V1_PREFIX}/auth/login",
     auto_error=True,
@@ -28,6 +30,11 @@ async def get_current_user(
 
     payload = decode_token(token)
     if not payload:
+        raise credentials_exception
+
+    # Check against revoked JWT jti blacklist
+    jti = payload.get("jti")
+    if jti and jti in revoked_token_jtis:
         raise credentials_exception
 
     token_type = payload.get("type")

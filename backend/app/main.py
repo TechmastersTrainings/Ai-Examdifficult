@@ -14,6 +14,25 @@ async def lifespan(app: FastAPI):
     # Ensure local storage directories exist safely
     os.makedirs(settings.UPLOAD_DIR, exist_ok=True)
     os.makedirs(settings.REPORTS_DIR, exist_ok=True)
+    try:
+        from backend.app.models import Base
+        from backend.app.db.session import engine
+        from sqlalchemy import text
+        Base.metadata.create_all(bind=engine)
+        with engine.connect() as conn:
+            try:
+                conn.execute(text("ALTER TABLE users ADD COLUMN institution_code VARCHAR(100)"))
+                conn.commit()
+            except Exception:
+                pass
+            try:
+                conn.execute(text("ALTER TABLE users ADD COLUMN designation VARCHAR(150)"))
+                conn.commit()
+            except Exception:
+                pass
+    except Exception as e:
+        import logging
+        logging.getLogger("uvicorn.error").warning(f"Schema auto-init notice: {e}")
     yield
 
 
@@ -21,7 +40,7 @@ app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.VERSION,
     description=(
-        "AI-Based Automatic Question Paper Difficulty Analyzer API. "
+        "Automatic Question Paper Difficulty Analyzer API. "
         "Provides Bloom's Taxonomy classification, difficulty estimation, "
         "and administrative reporting for academic institutions."
     ),

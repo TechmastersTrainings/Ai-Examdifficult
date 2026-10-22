@@ -15,3 +15,4 @@ class HealthResponse(BaseModel):
     timestamp: datetime = Field(default_factory=datetime.utcnow, description="UTC timestamp of the check")
     system_info: Dict[str, Any] = Field(default_factory=dict, description="Diagnostic system details")
     database_status: Optional[str] = Field(default="pending_phase_3", description="Status of the database connection")
+    database: Optional[str] = Field(default="connected", description="Database connection health state")

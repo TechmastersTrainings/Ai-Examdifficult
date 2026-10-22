@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, HTTPException, status, Request
 from sqlalchemy.orm import Session
 
 from backend.app.core.config import settings
-from backend.app.core.deps import get_current_active_user, get_db
+from backend.app.core.deps import get_current_active_user, get_db, revoked_token_jtis, oauth2_scheme
 from backend.app.core.security import (
     get_password_hash,
     verify_password,
@@ -55,7 +55,9 @@ def register_user(
         role=user_in.role,
         is_active=True,
         institution=user_in.institution,
+        institution_code=user_in.institution_code,
         department=user_in.department,
+        designation=user_in.designation,
     )
     db.add(new_user)
     db.commit()
@@ -237,9 +239,14 @@ def get_current_user_profile(
 )
 def logout(
     current_user: User = Depends(get_current_active_user),
+    token: str = Depends(oauth2_scheme),
     db: Session = Depends(get_db),
 ) -> Any:
-    """Revoke all active refresh tokens for the user."""
+    """Revoke current access token and all active refresh tokens for the user."""
+    payload = decode_token(token)
+    if payload and payload.get("jti"):
+        revoked_token_jtis.add(payload.get("jti"))
+
     db.query(RefreshToken).filter(
         RefreshToken.user_id == current_user.id,
         RefreshToken.is_revoked.is_(False),

@@ -8,7 +8,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     """Central configuration class loading values from environment or defaults."""
 
-    PROJECT_NAME: str = "AI-Based Question Paper Difficulty Analyzer"
+    PROJECT_NAME: str = "Question Paper Difficulty & Cognitive Demand Analyzer"
     VERSION: str = "0.1.0"
     ENVIRONMENT: str = "development"
     DEBUG: bool = True
@@ -24,11 +24,16 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
 
-    # Database
-    DATABASE_URL: str = "sqlite:///./data/app.db"
+    # Database (PostgreSQL with automatic local dev fallback)
+    DATABASE_URL: str = "postgresql+psycopg2://postgres:postgres@localhost:5432/ai_exam_difficult"
 
     # CORS
-    CORS_ORIGINS: Union[List[str], str] = ["http://localhost:3000", "http://127.0.0.1:3000"]
+    CORS_ORIGINS: Union[List[str], str] = [
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "http://localhost:3001",
+        "http://127.0.0.1:3001",
+    ]
 
     @field_validator("CORS_ORIGINS", mode="before")
     @classmethod
@@ -37,7 +42,12 @@ class Settings(BaseSettings):
             return [origin.strip() for origin in v.split(",") if origin.strip()]
         elif isinstance(v, list):
             return v
-        return ["http://localhost:3000", "http://127.0.0.1:3000"]
+        return [
+            "http://localhost:3000",
+            "http://127.0.0.1:3000",
+            "http://localhost:3001",
+            "http://127.0.0.1:3001",
+        ]
 
     # Storage Paths
     UPLOAD_DIR: str = "./backend/uploads"

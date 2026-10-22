@@ -66,7 +66,7 @@ class NumberedCanvas(canvas.Canvas):
         # Left branding
         self.drawString(
             36, 20,
-            "AI-Based Automatic Question Paper Difficulty Analyzer • Academic Audit Report"
+            "Automatic Question Paper Difficulty Analyzer • Academic Audit Report"
         )
         
         # Right page counter
@@ -526,11 +526,13 @@ class ReportGenerator:
             "Bloom Confidence",
             "Corrected Bloom Level",
             "Effective Bloom Level",
+            "Final Bloom Level",
             "Predicted Difficulty",
             "Difficulty Confidence",
             "Continuous Difficulty Score",
             "Corrected Difficulty",
             "Effective Difficulty",
+            "Final Difficulty",
             "Teacher Reviewed",
             "Teacher Rationale",
         ])
@@ -575,12 +577,14 @@ class ReportGenerator:
                 bloom_conf,
                 corr_bloom,
                 eff_bloom,
+                eff_bloom,
                 pred_diff,
                 diff_conf,
                 cont_score,
                 corr_diff,
                 eff_diff,
-                "YES" if q.is_reviewed_by_teacher else "NO",
+                eff_diff,
+                "YES" if (q.is_reviewed_by_teacher or latest_corr is not None) else "NO",
                 teacher_rationale,
             ])
 

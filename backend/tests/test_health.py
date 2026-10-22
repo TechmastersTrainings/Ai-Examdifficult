@@ -9,7 +9,7 @@ def test_root_endpoint(client: TestClient):
     assert response.status_code == 200
     data = response.json()
     assert data["status"] == "online"
-    assert "AI-Based" in data["service"]
+    assert "Question Paper" in data["service"]
     assert data["documentation"] == "/docs"
     assert data["api_v1"] == "/api/v1"
 

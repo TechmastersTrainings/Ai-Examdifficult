@@ -37,4 +37,5 @@ def check_health(db: Session = Depends(get_db)) -> HealthResponse:
             "debug_mode": settings.DEBUG,
         },
         database_status=db_status,
+        database=db_status,
     )

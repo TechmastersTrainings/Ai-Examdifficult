@@ -6,22 +6,38 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 from backend.app.core.config import settings
 
-# Ensure database directory exists if using SQLite
-if settings.DATABASE_URL.startswith("sqlite"):
-    db_path = settings.DATABASE_URL.replace("sqlite:///", "")
+import logging
+
+logger = logging.getLogger("uvicorn.error")
+
+active_db_url = settings.DATABASE_URL
+connect_args = {}
+
+if active_db_url.startswith("postgresql"):
+    try:
+        test_engine = create_engine(active_db_url, connect_args={}, pool_pre_ping=True)
+        with test_engine.connect():
+            pass
+        engine = test_engine
+        logger.info("Successfully connected to PostgreSQL database cluster.")
+    except Exception as exc:
+        logger.warning(
+            f"PostgreSQL at {active_db_url.split('@')[-1]} not reachable ({exc}). "
+            "Using persistent fallback SQLite store at ./data/app.db"
+        )
+        active_db_url = "sqlite:///./data/app.db"
+        os.makedirs("./data", exist_ok=True)
+        connect_args = {"check_same_thread": False}
+        engine = create_engine(active_db_url, connect_args=connect_args, pool_pre_ping=True)
+elif active_db_url.startswith("sqlite"):
+    db_path = active_db_url.replace("sqlite:///", "")
     db_dir = os.path.dirname(db_path)
     if db_dir:
         os.makedirs(db_dir, exist_ok=True)
     connect_args = {"check_same_thread": False}
+    engine = create_engine(active_db_url, connect_args=connect_args, pool_pre_ping=True)
 else:
-    connect_args = {}
-
-engine = create_engine(
-    settings.DATABASE_URL,
-    connect_args=connect_args,
-    pool_pre_ping=True,
-    echo=False,
-)
+    engine = create_engine(active_db_url, pool_pre_ping=True)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

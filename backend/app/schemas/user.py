@@ -17,7 +17,9 @@ class UserRegister(BaseModel):
         description="Desired role. Public self-registration permits TEACHER or RESEARCHER only.",
     )
     institution: Optional[str] = Field(default=None, max_length=255, description="Affiliated academic institution")
+    institution_code: Optional[str] = Field(default=None, max_length=100, description="Institution / College ID code")
     department: Optional[str] = Field(default=None, max_length=255, description="Academic department")
+    designation: Optional[str] = Field(default=None, max_length=255, description="Academic designation / title")
 
     @field_validator("role")
     @classmethod
@@ -47,7 +49,9 @@ class UserResponse(BaseModel):
     role: UserRole
     is_active: bool
     institution: Optional[str] = None
+    institution_code: Optional[str] = None
     department: Optional[str] = None
+    designation: Optional[str] = None
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)

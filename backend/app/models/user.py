@@ -33,7 +33,9 @@ class User(Base):
     )
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
     institution: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
+    institution_code: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
     department: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
+    designation: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
 
     # Relationships
     refresh_tokens: Mapped[List["RefreshToken"]] = relationship(

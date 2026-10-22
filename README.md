@@ -150,7 +150,7 @@
 - [x] **Phase 6: Advanced Modeling** — Compact transformer / feature ablation evaluations, leakage analysis, and error audits.
 - [x] **Phase 7: Document Processing Pipeline** — PDF / DOCX text extraction, question number parsing, section segmentation.
 - [x] **Phase 8: Backend Integration** — End-to-end APIs for upload, analysis, corrections, and reporting (ReportLab PDF & streaming CSV).
-- [ ] **Phase 9: Role-Specific Frontend Dashboards** — Admin, Teacher, and Researcher complete interactive views.
-- [ ] **Phase 10: Integration & Security Testing** — Automated acceptance testing across authorization boundaries.
-- [ ] **Phase 11: Deployment & Production Hardening** — Production configuration and backup strategy.
-- [ ] **Phase 12: Research Publication Manuscript** — Experimental findings, confusion matrices, and paper draft.
+- [x] **Phase 9: Role-Specific Frontend Dashboards** — Admin, Teacher, and Researcher complete interactive views.
+- [x] **Phase 10: Integration & Security Testing** — Automated acceptance testing across authorization boundaries.
+- [x] **Phase 11: Deployment & Production Hardening** — Production configuration and backup strategy.
+- [x] **Phase 12: Research Publication Manuscript** — Experimental findings, confusion matrices, and paper draft.

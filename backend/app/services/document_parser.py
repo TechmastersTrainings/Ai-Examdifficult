@@ -95,7 +95,7 @@ def validate_file_upload(file_bytes: bytes, original_filename: str) -> Tuple[str
     # Magic Bytes Validation
     if ext == ".pdf":
         if not file_bytes.startswith(b"%PDF-"):
-            raise ValueError("File content does not match a valid PDF header.")
+            raise ValueError("Invalid file signature: File content does not match a valid PDF header.")
     elif ext == ".docx":
         # DOCX is a zip archive containing word/document.xml
         try:
