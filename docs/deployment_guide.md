@@ -1,10 +1,10 @@
-# CognitivePulse AI — Production Deployment & Operational Hardening Guide
+# AI BASED AUTOMATIC QUESTION PAPER DIFFICULTY ANALYZER — Production Deployment & Operational Hardening Guide
 
 ---
 
 ## 1. Architecture Overview
 
-In production, CognitivePulse AI executes as a containerized multi-tier service:
+In production, AI BASED AUTOMATIC QUESTION PAPER DIFFICULTY ANALYZER executes as a containerized multi-tier service:
 
 ```
 [ Client Browsers / Faculty Portal ]
@@ -104,15 +104,15 @@ python scripts/backup_database.py --db-path ./data/app.db --backup-dir ./data/ba
 ```
 
 Each backup produces:
-1. `cognitivepulse_db_YYYYMMDD_HHMMSSZ.sqlite.gz`: Gzip-compressed archive.
-2. `cognitivepulse_db_YYYYMMDD_HHMMSSZ.sqlite.gz.sha256`: Cryptographic verification hash.
+1. `ai_exam_analyzer_db_YYYYMMDD_HHMMSSZ.sqlite.gz`: Gzip-compressed archive.
+2. `ai_exam_analyzer_db_YYYYMMDD_HHMMSSZ.sqlite.gz.sha256`: Cryptographic verification hash.
 
 ### Scheduling Daily Automated Backups
 
 #### Linux (Cron)
 Add to crontab (`crontab -e`):
 ```cron
-0 2 * * * cd /opt/cognitivepulse && /usr/bin/python3 scripts/backup_database.py >> /var/log/cognitivepulse_backup.log 2>&1
+0 2 * * * cd /opt/ai_exam_analyzer && /usr/bin/python3 scripts/backup_database.py >> /var/log/ai_exam_analyzer_backup.log 2>&1
 ```
 
 #### Windows (Task Scheduler)
@@ -125,6 +125,6 @@ powershell -Command "python C:\path\to\scripts\backup_database.py"
 
 To restore a specific backup with cryptographic SHA-256 validation:
 ```bash
-python scripts/restore_database.py ./data/backups/cognitivepulse_db_20261013_000000Z.sqlite.gz
+python scripts/restore_database.py ./data/backups/ai_exam_analyzer_db_20261013_000000Z.sqlite.gz
 ```
 The restoration tool creates a `.pre_restore.bak` snapshot of the active database before completing the restore.

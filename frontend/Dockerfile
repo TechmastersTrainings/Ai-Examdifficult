@@ -1,5 +1,5 @@
 # ==============================================================================
-# Production Dockerfile for CognitivePulse AI Frontend (Next.js 16 + React 19)
+# Production Dockerfile for AI BASED AUTOMATIC QUESTION PAPER DIFFICULTY ANALYZER (Next.js 16 + React 19)
 # ==============================================================================
 FROM node:22-alpine AS deps
 RUN apk add --no-cache libc6-compat

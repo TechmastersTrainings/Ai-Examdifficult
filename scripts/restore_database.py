@@ -58,7 +58,7 @@ def restore_backup(backup_path: str, target_db: str = DEFAULT_DB_PATH, skip_veri
 
 
 def main():
-    parser = argparse.ArgumentParser(description="CognitivePulse Database Restoration Utility")
+    parser = argparse.ArgumentParser(description="AI BASED AUTOMATIC QUESTION PAPER DIFFICULTY ANALYZER - Database Restoration Utility")
     parser.add_argument("backup_file", help="Path to .sqlite.gz backup archive")
     parser.add_argument("--target-db", default=DEFAULT_DB_PATH, help="Target SQLite DB destination")
     parser.add_argument("--skip-verify", action="store_true", help="Skip SHA-256 checksum check")

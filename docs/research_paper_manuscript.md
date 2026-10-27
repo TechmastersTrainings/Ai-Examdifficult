@@ -12,7 +12,7 @@
 
 Automated assessment of university examination papers requires distinguishing between **cognitive process dimension** (the mental operations elicited by a prompt) and **empirical question difficulty** (the expected probability of student error). Prevailing automated grading and assessment tools frequently conflate these two orthogonal dimensions, erroneously equating high cognitive demand with high difficulty. 
 
-In this paper, we introduce **CognitivePulse AI**, a production-engineered, dual-task Natural Language Processing (NLP) framework designed to automatically parse digital examination documents (PDF and DOCX), segment individual questions, classify each question across the **six revised Bloom’s Taxonomy cognitive levels** (*Remember, Understand, Apply, Analyze, Evaluate, Create*), and predict **empirical difficulty** (*Easy, Medium, Hard*). 
+In this paper, we introduce **AI BASED AUTOMATIC QUESTION PAPER DIFFICULTY ANALYZER**, a production-engineered, dual-task Natural Language Processing (NLP) framework designed to automatically parse digital examination documents (PDF and DOCX), segment individual questions, classify each question across the **six revised Bloom’s Taxonomy cognitive levels** (*Remember, Understand, Apply, Analyze, Evaluate, Create*), and predict **empirical difficulty** (*Easy, Medium, Hard*). 
 
 Our system leverages a zero-leakage, stratified educational benchmark dataset preprocessed to eliminate confounding surface cues (e.g., explicit mark allocations and numbering schema). Through rigorous empirical evaluation, our champion multi-class classifier achieves a **Test Macro-F1 of 91.93% (Accuracy: 91.86%)** on Bloom’s Taxonomy classification (Task A) and a **Test Macro-F1 of 95.56% (Accuracy: 95.35%)** on Question Difficulty estimation (Task B). Feature ablation experiments demonstrate that fusing lexical n-gram representations with surface readability metrics (Flesch-Kincaid, Automated Readability Index) yields an improved Test Macro-F1 of **92.65%**, while POS syntactic distributions establish robust boundary separation between procedural (*Apply*) and conceptual (*Analyze*) prompts. Finally, we implement an auditable, human-in-the-loop review interface with strict tenant isolation, ensuring institutional governance and instructional validity.
 
@@ -198,7 +198,7 @@ These findings demonstrate why fully automated systems cannot operate in isolati
 
 ## 8. Conclusion & Future Work
 
-We presented **CognitivePulse AI**, a dual-task NLP framework for automated examination paper difficulty and Bloom’s Taxonomy classification. By decoupling cognitive demand from question difficulty, enforcing zero-leakage training protocols, and incorporating readability-aware feature fusion, our system achieves **91.93% Macro-F1** on Bloom's classification and **95.56% Macro-F1** on difficulty estimation. 
+We presented **AI BASED AUTOMATIC QUESTION PAPER DIFFICULTY ANALYZER**, a dual-task NLP framework for automated examination paper difficulty and Bloom’s Taxonomy classification. By decoupling cognitive demand from question difficulty, enforcing zero-leakage training protocols, and incorporating readability-aware feature fusion, our system achieves **91.93% Macro-F1** on Bloom's classification and **95.56% Macro-F1** on difficulty estimation. 
 
 Future extensions include fine-tuning compact parameter-efficient domain adapters (LoRA on DeBERTa-v3-small) to handle cross-disciplinary multi-lingual examinations under edge-compute constraints.
 

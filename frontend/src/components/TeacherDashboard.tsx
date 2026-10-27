@@ -568,7 +568,7 @@ export const TeacherDashboard: React.FC = () => {
               </button>
             </div>
 
-            <form onSubmit={handleUploadSubmit}>
+            <form onSubmit={handleUploadSubmit} autoComplete="off">
               <div className="modal-body">
                 <div className="form-group">
                   <label className="form-label">Select Document (PDF or DOCX) *</label>
@@ -593,6 +593,7 @@ export const TeacherDashboard: React.FC = () => {
                   <input
                     type="text"
                     required
+                    autoComplete="off"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="e.g. Midterm Examination"
@@ -605,6 +606,7 @@ export const TeacherDashboard: React.FC = () => {
                   <input
                     type="text"
                     required
+                    autoComplete="off"
                     value={subject}
                     onChange={(e) => setSubject(e.target.value)}
                     placeholder="e.g. Computer Science"
@@ -617,6 +619,7 @@ export const TeacherDashboard: React.FC = () => {
                     <label className="form-label">Academic Year</label>
                     <input
                       type="text"
+                      autoComplete="off"
                       value={academicYear}
                       onChange={(e) => setAcademicYear(e.target.value)}
                       placeholder="e.g. 2026"
@@ -627,6 +630,7 @@ export const TeacherDashboard: React.FC = () => {
                     <label className="form-label">Term / Semester</label>
                     <input
                       type="text"
+                      autoComplete="off"
                       value={term}
                       onChange={(e) => setTerm(e.target.value)}
                       placeholder="e.g. Spring"

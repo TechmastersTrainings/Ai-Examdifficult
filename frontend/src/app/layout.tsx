@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "CognitivePulse | Cognitive Level & Difficulty Engine",
+  title: "AI BASED AUTOMATIC QUESTION PAPER DIFFICULTY ANALYZER",
   description:
-    "Automated question paper difficulty analyzer using revised Bloom's Taxonomy classification.",
+    "AI BASED AUTOMATIC QUESTION PAPER DIFFICULTY ANALYZER - Automated examination question paper difficulty and revised Bloom's Taxonomy cognitive demand evaluation platform.",
 };
 
 export default function RootLayout({

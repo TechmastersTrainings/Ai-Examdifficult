@@ -40,7 +40,7 @@ app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.VERSION,
     description=(
-        "Automatic Question Paper Difficulty Analyzer API. "
+        "AI BASED AUTOMATIC QUESTION PAPER DIFFICULTY ANALYZER API. "
         "Provides Bloom's Taxonomy classification, difficulty estimation, "
         "and administrative reporting for academic institutions."
     ),
@@ -51,17 +51,19 @@ app = FastAPI(
 )
 
 # CORS Middleware
-if settings.CORS_ORIGINS:
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=settings.CORS_ORIGINS,
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
-    )
+cors_origins = list(settings.CORS_ORIGINS) if isinstance(settings.CORS_ORIGINS, list) else [settings.CORS_ORIGINS]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=cors_origins,
+    allow_origin_regex=r"^https:\/\/.*\.vercel\.app$",
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Mount API Routers
 app.include_router(api_router, prefix=settings.API_V1_PREFIX)
+
 
 
 @app.get("/", tags=["Root"])
@@ -74,3 +76,16 @@ async def root():
         "documentation": "/docs",
         "api_v1": settings.API_V1_PREFIX,
     }
+
+
+@app.get("/health", tags=["Root"])
+def root_health():
+    """Convenience alias for health monitoring."""
+    from backend.app.api.v1.endpoints.health import check_health
+    from backend.app.db.session import SessionLocal
+    db = SessionLocal()
+    try:
+        return check_health(db=db)
+    finally:
+        db.close()
+

@@ -41,7 +41,7 @@ def create_backup(db_path: str = DEFAULT_DB_PATH, backup_dir: str = DEFAULT_BACK
         sys.exit(1)
 
     timestamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%d_%H%M%SZ")
-    backup_filename = f"cognitivepulse_db_{timestamp}.sqlite.gz"
+    backup_filename = f"ai_exam_analyzer_db_{timestamp}.sqlite.gz"
     backup_path = target_dir / backup_filename
     checksum_path = target_dir / f"{backup_filename}.sha256"
 
@@ -78,7 +78,7 @@ def purge_expired_backups(backup_dir: str = DEFAULT_BACKUP_DIR, retention_days: 
     cutoff = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(days=retention_days)
     purged_count = 0
 
-    for file in target_dir.glob("cognitivepulse_db_*.sqlite.gz*"):
+    for file in target_dir.glob("ai_exam_analyzer_db_*.sqlite.gz*"):
         mtime = datetime.datetime.fromtimestamp(file.stat().st_mtime, tz=datetime.timezone.utc)
         if mtime < cutoff:
             print(f"[-] Removing expired backup: {file.name} (Age: {mtime.isoformat()})")
@@ -92,7 +92,7 @@ def purge_expired_backups(backup_dir: str = DEFAULT_BACKUP_DIR, retention_days: 
 
 
 def main():
-    parser = argparse.ArgumentParser(description="CognitivePulse Database Backup Utility")
+    parser = argparse.ArgumentParser(description="AI BASED AUTOMATIC QUESTION PAPER DIFFICULTY ANALYZER - Database Backup Utility")
     parser.add_argument("--db-path", default=DEFAULT_DB_PATH, help="Path to SQLite database")
     parser.add_argument("--backup-dir", default=DEFAULT_BACKUP_DIR, help="Destination directory for backups")
     parser.add_argument("--retention-days", type=int, default=DEFAULT_RETENTION_DAYS, help="Backup retention days")

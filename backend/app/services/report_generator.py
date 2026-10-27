@@ -66,7 +66,7 @@ class NumberedCanvas(canvas.Canvas):
         # Left branding
         self.drawString(
             36, 20,
-            "Automatic Question Paper Difficulty Analyzer • Academic Audit Report"
+            "AI BASED AUTOMATIC QUESTION PAPER DIFFICULTY ANALYZER • Academic Audit Report"
         )
         
         # Right page counter

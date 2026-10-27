@@ -95,8 +95,8 @@ export default function Home() {
                 Institutional Examination Assessment
               </div>
 
-              <h1 style={{ fontSize: "2.25rem", color: "var(--text-main)", marginBottom: "0.85rem", lineHeight: 1.25 }}>
-                Examination Paper Difficulty & Cognitive Demand Analyzer
+              <h1 style={{ fontSize: "2rem", color: "var(--text-main)", marginBottom: "0.85rem", lineHeight: 1.25 }}>
+                AI BASED AUTOMATIC QUESTION PAPER DIFFICULTY ANALYZER
               </h1>
 
               <p style={{ fontSize: "1rem", color: "var(--text-secondary)", maxWidth: "700px", margin: "0 auto 1.75rem auto", lineHeight: 1.5 }}>
@@ -179,10 +179,10 @@ export default function Home() {
       <footer style={{ borderTop: "1px solid var(--border-light)", backgroundColor: "var(--bg-surface)", padding: "1rem 1.5rem", marginTop: "auto" }}>
         <div style={{ maxWidth: "1400px", margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.75rem" }}>
           <div style={{ fontSize: "0.75rem", color: "var(--text-secondary)" }}>
-            <strong>CognitivePulse</strong> — Institutional Examination Demand & Cognitive Level Evaluation
+            <strong>AI BASED AUTOMATIC QUESTION PAPER DIFFICULTY ANALYZER</strong> — Institutional Examination Assessment & Cognitive Demand
           </div>
           <div style={{ fontSize: "0.725rem", color: "var(--text-muted)" }}>
-            PostgreSQL Database • Zero Mock Data
+            Dedicated Database Storage • Real-Time AI Inference
           </div>
         </div>
       </footer>

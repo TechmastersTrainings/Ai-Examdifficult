@@ -1,4 +1,4 @@
-# AI-Based Automatic Question Paper Difficulty Analyzer
+# AI BASED AUTOMATIC QUESTION PAPER DIFFICULTY ANALYZER
 
 > **Using Natural Language Processing and Bloom’s Taxonomy Classification**  
 > *A research-grade, production-engineered platform for cognitive demand evaluation and empirical examination paper difficulty analysis.*
@@ -7,7 +7,7 @@
 
 ## 1. Project Overview
 
-**CognitivePulse AI** is an end-to-end NLP system designed to analyze university and higher-secondary examination question papers. The platform parses digital examination documents (PDF and Word `.docx`), segments and identifies individual questions, classifies each question across the **6 revised Bloom’s Taxonomy cognitive levels**, estimates **question difficulty** (Easy, Medium, Hard), and generates auditable institutional analytics and downloadable reports.
+**AI BASED AUTOMATIC QUESTION PAPER DIFFICULTY ANALYZER** is an end-to-end NLP system designed to analyze university and higher-secondary examination question papers. The platform parses digital examination documents (PDF and Word `.docx`), segments and identifies individual questions, classifies each question across the **6 revised Bloom’s Taxonomy cognitive levels**, estimates **question difficulty** (Easy, Medium, Hard), and generates auditable institutional analytics and downloadable reports.
 
 ### Key Tenets
 - **Zero Mock Data in Production:** All dashboard statistics, classifications, and reports originate from real database records, verified model outputs, and genuine documents. Empty states are explicitly rendered when no records exist.

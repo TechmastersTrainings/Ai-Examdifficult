@@ -8,7 +8,7 @@
 
 ## 1. Executive Summary
 
-This document establishes the empirical provenance, annotation methodology, class distributions, and research limitations of the **Academic Examination Questions Benchmark (AEQ-Bench)**. The dataset serves as the standardized training, validation, and held-out test repository for the **CognitivePulse AI** research pipeline.
+This document establishes the empirical provenance, annotation methodology, class distributions, and research limitations of the **Academic Examination Questions Benchmark (AEQ-Bench)**. The dataset serves as the standardized training, validation, and held-out test repository for the **AI BASED AUTOMATIC QUESTION PAPER DIFFICULTY ANALYZER** research pipeline.
 
 ---
 

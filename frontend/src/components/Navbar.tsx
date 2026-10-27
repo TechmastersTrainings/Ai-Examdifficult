@@ -52,15 +52,15 @@ export const Navbar: React.FC<NavbarProps> = ({
         >
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-              <span className="brand-title">
-                CognitivePulse
+              <span className="brand-title" style={{ fontSize: "0.925rem", letterSpacing: "0.01em" }}>
+                AI BASED AUTOMATIC QUESTION PAPER DIFFICULTY ANALYZER
               </span>
-              <span className="badge badge-jade" style={{ fontSize: "0.65rem", padding: "0.15rem 0.4rem" }}>
+              <span className="badge badge-jade" style={{ fontSize: "0.65rem", padding: "0.15rem 0.4rem", whiteSpace: "nowrap" }}>
                 Academic Platform
               </span>
             </div>
             <p className="brand-subtitle">
-              Automated Examination Demand & Bloom’s Taxonomy
+              Automated Cognitive Demand & Bloom’s Taxonomy Platform
             </p>
           </div>
         </div>

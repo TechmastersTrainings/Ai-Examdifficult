@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { X, AlertCircle, CheckCircle2 } from "lucide-react";
 import { api } from "../services/api";
 import { UserRole, User as UserType } from "../types";
@@ -20,7 +20,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 }) => {
   const [mode, setMode] = useState<"login" | "register" | "recovery">(initialMode);
 
-  // Authentication Fields
+  // Authentication Fields (Explicitly blank - zero autofill)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -31,11 +31,42 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [institution, setInstitution] = useState("");
   const [institutionCode, setInstitutionCode] = useState("");
   const [department, setDepartment] = useState("");
-  const [designation, setDesignation] = useState("Assistant Professor");
+  const [designation, setDesignation] = useState("");
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [recoveryMessage, setRecoveryMessage] = useState<string | null>(null);
+
+  // Reset all state when modal opens or initialMode changes
+  useEffect(() => {
+    if (isOpen) {
+      setMode(initialMode);
+      resetAllFields();
+    }
+  }, [isOpen, initialMode]);
+
+  const resetAllFields = () => {
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+    setFullName("");
+    setRole("TEACHER");
+    setInstitution("");
+    setInstitutionCode("");
+    setDepartment("");
+    setDesignation("");
+    setError(null);
+    setRecoveryMessage(null);
+  };
+
+  const handleTabSwitch = (newMode: "login" | "register" | "recovery") => {
+    setMode(newMode);
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+    setError(null);
+    setRecoveryMessage(null);
+  };
 
   if (!isOpen) return null;
 
@@ -49,6 +80,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       if (mode === "login") {
         const res = await api.login(email.trim(), password);
         onSuccess(res.user);
+        resetAllFields();
         onClose();
       } else if (mode === "register") {
         if (password.length < 8) {
@@ -75,6 +107,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           return;
         }
 
+        if (!designation) {
+          setError("Please select your academic designation.");
+          setLoading(false);
+          return;
+        }
+
         await api.register({
           email: email.trim(),
           password,
@@ -89,6 +127,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         // Automatically authenticate upon successful registration
         const loginRes = await api.login(email.trim(), password);
         onSuccess(loginRes.user);
+        resetAllFields();
         onClose();
       } else if (mode === "recovery") {
         if (!email.trim()) {
@@ -118,8 +157,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         <div className="modal-header">
           <div>
             <h3 className="modal-title">
-              {mode === "login" && "Sign In to CognitivePulse"}
-              {mode === "register" && "Institutional Account Registration"}
+              {mode === "login" && "Sign In to AI BASED AUTOMATIC QUESTION PAPER DIFFICULTY ANALYZER"}
+              {mode === "register" && "Register Account — AI BASED AUTOMATIC QUESTION PAPER DIFFICULTY ANALYZER"}
               {mode === "recovery" && "Account Access Recovery"}
             </h3>
             <p style={{ fontSize: "0.775rem", color: "var(--text-secondary)", marginTop: "2px" }}>
@@ -129,9 +168,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             </p>
           </div>
           <button
-            onClick={onClose}
+            onClick={() => { resetAllFields(); onClose(); }}
             className="btn btn-secondary btn-icon"
             style={{ width: "28px", height: "28px", borderRadius: "50%" }}
+            title="Close"
           >
             <X size={15} />
           </button>
@@ -148,21 +188,21 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         >
           <button
             type="button"
-            onClick={() => { setMode("login"); setError(null); }}
+            onClick={() => handleTabSwitch("login")}
             className={`tab-btn ${mode === "login" ? "active" : ""}`}
           >
             Sign In
           </button>
           <button
             type="button"
-            onClick={() => { setMode("register"); setError(null); }}
+            onClick={() => handleTabSwitch("register")}
             className={`tab-btn ${mode === "register" ? "active" : ""}`}
           >
             Register Institution / Faculty
           </button>
           <button
             type="button"
-            onClick={() => { setMode("recovery"); setError(null); setRecoveryMessage(null); }}
+            onClick={() => handleTabSwitch("recovery")}
             className={`tab-btn ${mode === "recovery" ? "active" : ""}`}
           >
             Help
@@ -186,11 +226,16 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           )}
 
           {mode === "recovery" ? (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} autoComplete="off">
               <div className="form-group">
                 <label className="form-label">Registered Institutional Email</label>
                 <input
                   type="email"
+                  name="recovery_auth_email_no_autofill"
+                  autoComplete="off"
+                  autoCorrect="off"
+                  autoCapitalize="off"
+                  spellCheck={false}
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -203,7 +248,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               </div>
 
               <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.5rem", marginTop: "1.5rem" }}>
-                <button type="button" onClick={() => setMode("login")} className="btn btn-secondary">
+                <button type="button" onClick={() => handleTabSwitch("login")} className="btn btn-secondary">
                   Back to Sign In
                 </button>
                 <button type="submit" disabled={loading} className="btn btn-primary">
@@ -212,7 +257,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               </div>
             </form>
           ) : (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} autoComplete="off">
               {mode === "register" ? (
                 <>
                   {/* Section 1: Academic & Personal Identity */}
@@ -226,6 +271,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                         <label className="form-label">Full Name & Title *</label>
                         <input
                           type="text"
+                          name="academic_full_name_no_autofill"
+                          autoComplete="off"
+                          autoCorrect="off"
+                          spellCheck={false}
                           required
                           value={fullName}
                           onChange={(e) => setFullName(e.target.value)}
@@ -238,6 +287,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                         <label className="form-label">Official Institutional Email *</label>
                         <input
                           type="email"
+                          name="academic_email_address_no_autofill"
+                          autoComplete="off"
+                          autoCorrect="off"
+                          autoCapitalize="off"
+                          spellCheck={false}
                           required
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
@@ -252,6 +306,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                         <label className="form-label">Password (Min 8 Characters) *</label>
                         <input
                           type="password"
+                          name="academic_new_password_no_autofill"
+                          autoComplete="new-password"
+                          autoCorrect="off"
+                          autoCapitalize="off"
+                          spellCheck={false}
                           required
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
@@ -264,6 +323,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                         <label className="form-label">Confirm Password *</label>
                         <input
                           type="password"
+                          name="academic_confirm_password_no_autofill"
+                          autoComplete="new-password"
+                          autoCorrect="off"
+                          autoCapitalize="off"
+                          spellCheck={false}
                           required
                           value={confirmPassword}
                           onChange={(e) => setConfirmPassword(e.target.value)}
@@ -307,6 +371,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                         <label className="form-label">College / University / Institute Name *</label>
                         <input
                           type="text"
+                          name="academic_institution_name_no_autofill"
+                          autoComplete="off"
+                          autoCorrect="off"
+                          spellCheck={false}
                           required
                           value={institution}
                           onChange={(e) => setInstitution(e.target.value)}
@@ -319,6 +387,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                         <label className="form-label">College / Institute Code</label>
                         <input
                           type="text"
+                          name="academic_institution_code_no_autofill"
+                          autoComplete="off"
+                          autoCorrect="off"
+                          spellCheck={false}
                           value={institutionCode}
                           onChange={(e) => setInstitutionCode(e.target.value)}
                           placeholder="e.g. IITB-01"
@@ -332,6 +404,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                         <label className="form-label">Department / School *</label>
                         <input
                           type="text"
+                          name="academic_department_name_no_autofill"
+                          autoComplete="off"
+                          autoCorrect="off"
+                          spellCheck={false}
                           required
                           value={department}
                           onChange={(e) => setDepartment(e.target.value)}
@@ -341,12 +417,16 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                       </div>
 
                       <div className="form-group">
-                        <label className="form-label">Academic Designation / Title</label>
+                        <label className="form-label">Academic Designation / Title *</label>
                         <select
+                          name="academic_designation_select_no_autofill"
+                          autoComplete="off"
+                          required
                           value={designation}
                           onChange={(e) => setDesignation(e.target.value)}
                           className="form-select"
                         >
+                          <option value="" disabled>Select Academic Designation</option>
                           <option value="Professor">Professor</option>
                           <option value="Associate Professor">Associate Professor</option>
                           <option value="Assistant Professor">Assistant Professor</option>
@@ -366,6 +446,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                     <label className="form-label">Institutional Email Address</label>
                     <input
                       type="email"
+                      name="account_login_email_no_autofill"
+                      autoComplete="off"
+                      autoCorrect="off"
+                      autoCapitalize="off"
+                      spellCheck={false}
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
@@ -379,7 +464,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                       <label className="form-label">Account Password</label>
                       <button
                         type="button"
-                        onClick={() => setMode("recovery")}
+                        onClick={() => handleTabSwitch("recovery")}
                         style={{
                           background: "none",
                           border: "none",
@@ -394,6 +479,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                     </div>
                     <input
                       type="password"
+                      name="account_login_password_no_autofill"
+                      autoComplete="new-password"
+                      autoCorrect="off"
+                      autoCapitalize="off"
+                      spellCheck={false}
                       required
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}

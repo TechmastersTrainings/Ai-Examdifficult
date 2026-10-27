@@ -242,7 +242,7 @@ export const AdminDashboard: React.FC = () => {
 
                 <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid var(--border-subtle)", paddingBottom: "0.4rem" }}>
                   <span style={{ color: "var(--text-secondary)" }}>Database Engine:</span>
-                  <span style={{ fontWeight: 600 }}>{health?.database_status === "connected" ? "PostgreSQL / SQLAlchemy 2.0" : "Offline"}</span>
+                  <span style={{ fontWeight: 600 }}>{health?.database_status === "connected" ? "Dedicated Database / SQLAlchemy 2.0" : "Offline"}</span>
                 </div>
 
                 <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid var(--border-subtle)", paddingBottom: "0.4rem" }}>
@@ -252,7 +252,7 @@ export const AdminDashboard: React.FC = () => {
 
                 <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid var(--border-subtle)", paddingBottom: "0.4rem" }}>
                   <span style={{ color: "var(--text-secondary)" }}>Service Name:</span>
-                  <span>{health?.project_name || "CognitivePulse Analyzer"}</span>
+                  <span style={{ fontWeight: 600 }}>{health?.project_name || "AI BASED AUTOMATIC QUESTION PAPER DIFFICULTY ANALYZER"}</span>
                 </div>
               </div>
             </div>

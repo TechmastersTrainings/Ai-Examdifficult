@@ -1,5 +1,5 @@
 # ==============================================================================
-# Production Dockerfile for CognitivePulse AI Backend (FastAPI + Python 3.11)
+# Production Dockerfile for AI BASED AUTOMATIC QUESTION PAPER DIFFICULTY ANALYZER Backend (FastAPI + Python 3.11)
 # ==============================================================================
 FROM python:3.11-slim AS builder
 
@@ -57,4 +57,4 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
     CMD python -c "import urllib.request; sys_exit = 0 if urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health').getcode() == 200 else 1; exit(sys_exit)"
 
-CMD ["uvicorn", "backend.app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4"]
+CMD ["sh", "-c", "uvicorn backend.app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]

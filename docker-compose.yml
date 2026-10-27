@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: backend/Dockerfile
-    container_name: cognitivepulse-backend
+    container_name: ai-exam-analyzer-backend
     restart: unless-stopped
     environment:
       - ENVIRONMENT=production
@@ -35,7 +35,7 @@ services:
     build:
       context: .
       dockerfile: frontend/Dockerfile
-    container_name: cognitivepulse-frontend
+    container_name: ai-exam-analyzer-frontend
     restart: unless-stopped
     environment:
       - NODE_ENV=production
@@ -54,7 +54,7 @@ services:
 
   nginx:
     image: nginx:alpine
-    container_name: cognitivepulse-proxy
+    container_name: ai-exam-analyzer-proxy
     restart: unless-stopped
     ports:
       - "80:80"

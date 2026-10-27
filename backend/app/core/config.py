@@ -8,7 +8,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     """Central configuration class loading values from environment or defaults."""
 
-    PROJECT_NAME: str = "Question Paper Difficulty & Cognitive Demand Analyzer"
+    PROJECT_NAME: str = "AI BASED AUTOMATIC QUESTION PAPER DIFFICULTY ANALYZER"
     VERSION: str = "0.1.0"
     ENVIRONMENT: str = "development"
     DEBUG: bool = True

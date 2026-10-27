@@ -9,19 +9,21 @@ import {
   ResearchMetrics,
 } from "../types";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api/v1";
+const RAW_API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api/v1";
+const API_BASE_URL = RAW_API_URL.replace(/\/+$/, "");
 
 class ApiService {
   private getToken(): string | null {
     if (typeof window === "undefined") return null;
-    return localStorage.getItem("cp_access_token");
+    return localStorage.getItem("ai_exam_analyzer_token") || localStorage.getItem("cp_access_token");
   }
 
   public setToken(token: string | null) {
     if (typeof window === "undefined") return;
     if (token) {
-      localStorage.setItem("cp_access_token", token);
+      localStorage.setItem("ai_exam_analyzer_token", token);
     } else {
+      localStorage.removeItem("ai_exam_analyzer_token");
       localStorage.removeItem("cp_access_token");
     }
   }

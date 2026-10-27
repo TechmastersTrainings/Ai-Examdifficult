@@ -11,6 +11,11 @@ import logging
 logger = logging.getLogger("uvicorn.error")
 
 active_db_url = settings.DATABASE_URL
+if active_db_url.startswith("postgres://"):
+    active_db_url = active_db_url.replace("postgres://", "postgresql+psycopg2://", 1)
+elif active_db_url.startswith("postgresql://") and not active_db_url.startswith("postgresql+"):
+    active_db_url = active_db_url.replace("postgresql://", "postgresql+psycopg2://", 1)
+
 connect_args = {}
 
 if active_db_url.startswith("postgresql"):

@@ -1,6 +1,6 @@
 # Annotation Guidelines: Bloom’s Taxonomy and Question Difficulty
 
-> **CognitivePulse AI Research Protocol**  
+> **AI BASED AUTOMATIC QUESTION PAPER DIFFICULTY ANALYZER — Research Protocol**  
 > Version: 1.0.0  
 > Date: October 2026  
 > Authors: NLP Research & Evaluation Team
